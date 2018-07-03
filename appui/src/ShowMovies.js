@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './ShowMovies.css'
 
-export class ShowMovies extends Component{
-  handleChange=(movie)=>{
-    let _movie=movie;
-    this.props.vote(_movie)
-  }
+export class ShowMovies extends Component {
+  handleChange = (movie) => {
+    this.props.vote(movie);
+  };
 
-  render(){
-    let movieList=this.props.movies.map((movie,i)=>
+  render() {
+    let movieList = this.props.movies.map((movie, i) =>
       <tr key={i}>
-        <td onClick={this.handleChange.bind(this,movie.name)}>{movie.name}</td>
+        <td onClick={this.handleChange.bind(this, movie.name)}>{movie.name}</td>
         <td>{movie.rating}</td>
-      </tr>)
+      </tr>);
 
-    return(
+    return (
       <div>
         <h3> Movies</h3>
-        <hr />
-        <table >
+        <hr/>
+        <table>
           <tbody>
           <tr>
             <th>Movie</th>

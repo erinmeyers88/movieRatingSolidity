@@ -1,33 +1,46 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {ratingContract}  from "./setup";
-import {ShowMovies } from "./ShowMovies";
+import {ratingContract} from "./setup";
+import {ShowMovies} from "./ShowMovies";
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
-    this.state={
-      movies : [{name:'Star Wars',rating:0},{name:'Avatar',rating:0},{name:'Inception',rating:0}]
+    this.state = {
+      movies: [{name: 'Star Wars', rating: 0}, {name: 'Avatar', rating: 0}, {name: 'Inception', rating: 0}]
     };
-    this.handleVoting=this.handleVoting.bind(this)
+    this.handleVoting = this.handleVoting.bind(this)
   }
 
-  handleVoting(movie){
-
-    ratingContract.methods.voteForMovie(movie).call();
-    let votes = ratingContract.methods.totalVotesFor(movie);
+  handleVoting(movie) {
+    console.log('movie', movie);
+    ratingContract.voteForMovie(movie);
+    let votes = Number(ratingContract.totalVotesFor(movie));
     console.log('votes', votes);
-    this.setState({movies:this.state.movies.map(
-      (el)=>el.name===movie? Object.assign({},el,{rating:votes}):el
 
-    )});
+    let updatedMovies = this.state.movies.map(el => {
+      if (el.name === movie) {
+        return {
+          ...el,
+          rating: votes
+        }
+      } else {
+        return el;
+      }
+    });
+
+    this.setState({
+      movies: updatedMovies
+    });
+
   }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={logo} className="App-logo" alt="logo"/>
           <h1 className="App-title">Welcome to Ethereum</h1>
         </header>
         <p className="App-intro">

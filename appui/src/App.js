@@ -6,11 +6,20 @@ import {ShowMovies} from "./ShowMovies";
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+
+
     this.state = {
       movies: [{name: 'Star Wars', rating: 0}, {name: 'Avatar', rating: 0}, {name: 'Inception', rating: 0}]
     };
     this.handleVoting = this.handleVoting.bind(this)
+  }
+
+  componentDidMount(){
+    console.log('rating contract', ratingContract);
+    let movies = ratingContract.getMovies();
+    console.log('movies', movies);
   }
 
   handleVoting(movie) {

@@ -10,11 +10,19 @@ contract Rating {
         movieList = movieNames;
     }
 
+    function getMovies() view public returns (bytes32[]) {
+        bytes32[] memory list;
+        for (uint i = 0; i <= movieList.length; i++) {
+            list[i] = movieList[i];
+        }
+        return list;
+    }
+
     function totalVotesFor(bytes32 movie) view public returns (uint8) {
         return ratingsReceived[movie];
     }
 
-    function voteForMovie(bytes32 movie) public  {
+    function voteForMovie(bytes32 movie) public {
         ratingsReceived[movie] += 1;
     }
 }
